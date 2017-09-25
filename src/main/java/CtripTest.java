@@ -29,7 +29,7 @@ public class CtripTest {
 
 
         goCtrip(driver);
-        goDynWeb(driver);
+       // goDynWeb(driver);
 
 
     }
@@ -144,6 +144,11 @@ public class CtripTest {
             }
 
         }
+    }
+    
+    
+    void methodAddedByOnkobaSamson(){
+    
     }
 
 }
