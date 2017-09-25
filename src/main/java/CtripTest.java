@@ -6,6 +6,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.*;
 import org.openqa.selenium.logging.Logs;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -18,18 +19,18 @@ import java.util.Set;
 
 public class CtripTest {
     static WebDriver driver;
-    static String baseUrl = "http://english.ctrip.com";
-//STATUS COMPLETE
+    static String baseUrl = "https://www.stage2pxxxx.ga.paypal.com/myaccount";
+    //STATUS COMPLETE
+    @FindBy(css = "#hotelsCity")
+    WebElement myElement;
 
     public static void main(String[] args) throws Exception {
         File pathToBinary = new File("C:\\Users\\ygong1\\Mozilla Firefox\\firefox.exe");
         FirefoxBinary ffBinary = new FirefoxBinary(pathToBinary);
         FirefoxProfile firefoxProfile = new FirefoxProfile();
         WebDriver driver = new FirefoxDriver(ffBinary, firefoxProfile);
-
-
         goCtrip(driver);
-       // goDynWeb(driver);
+        // goDynWeb(driver);
 
 
     }
@@ -63,6 +64,7 @@ public class CtripTest {
         String dateToday = dateFormat.format(today);
 
         driver.get(baseUrl);
+
         WebDriverWait wait = new WebDriverWait(driver, 1000);
         wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#hotelsCity")));
 
@@ -97,7 +99,7 @@ public class CtripTest {
         System.out.print(adElements.size() + "");
         for (WebElement element : adElements
                 ) {
-            removeElement(driver,element);
+            removeElement(driver, element);
         }
 
 
@@ -123,37 +125,36 @@ public class CtripTest {
 
 
     static void changeInnerHTML(WebDriver driver, WebElement element, String content) {
-        try{
-        ((JavascriptExecutor) driver).executeScript(
+        try {
+            ((JavascriptExecutor) driver).executeScript(
 
-                "var ele=arguments[0]; ele.innerHTML = '" + content + "';", element);
+                    "var ele=arguments[0]; ele.innerHTML = '" + content + "';", element);
 
-        }catch(Exception e){}
+        } catch (Exception e) {
+        }
 
     }
 
-    static void removeElement(WebDriver driver,WebElement element) {
+    static void removeElement(WebDriver driver, WebElement element) {
         if (driver instanceof JavascriptExecutor) {
             try {
                 ((JavascriptExecutor) driver).executeScript(
                         "var ele=arguments[0]; ele.remove();", element);
 
-            }catch (StaleElementReferenceException exception){
+            } catch (StaleElementReferenceException exception) {
 
 
             }
 
         }
     }
-    
-    
-    void methodAddedByOnkobaSamson(){
 
-    
 
-    //This is the scond commit done by onkoba sam
-
-    }
+//    void methodAddedByOnkobaSamson() {
+//
+//        //This is the second commit done by onkoba sam
+//
+//    }
 
 }
 
