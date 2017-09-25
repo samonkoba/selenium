@@ -146,6 +146,11 @@ public class CtripTest {
         }
     }
 
+    void newMethodAddedByOnobaSam(){
+    
+    }
+    
+    
 }
 
 
