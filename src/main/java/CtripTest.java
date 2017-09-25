@@ -145,6 +145,11 @@ public class CtripTest {
 
         }
     }
+    
+    
+    void methodAddedByOnkobaSamson(){
+    
+    }
 
 }
 
