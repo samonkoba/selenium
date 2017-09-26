@@ -1,13 +1,16 @@
 package com.selenium.test;
 
+import com.selenium.test.utils.TestUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.http.client.utils.DateUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.*;
 import org.openqa.selenium.logging.Logs;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -18,39 +21,19 @@ import java.util.Set;
 
 public class CtripTest {
     static WebDriver driver;
-    static String baseUrl = "http://english.ctrip.com";
-//STATUS COMPLETE
+    static String baseUrl = "https://english.ctrip.com";
+    //STATUS COMPLETE
+    @FindBy(css = "#hotelsCity")
+    WebElement myElement;
 
     public static void main(String[] args) throws Exception {
         File pathToBinary = new File("C:\\Users\\ygong1\\Mozilla Firefox\\firefox.exe");
         FirefoxBinary ffBinary = new FirefoxBinary(pathToBinary);
         FirefoxProfile firefoxProfile = new FirefoxProfile();
         WebDriver driver = new FirefoxDriver(ffBinary, firefoxProfile);
-
-
         goCtrip(driver);
-        goDynWeb(driver);
+        // goDynWeb(driver);
 
-
-    }
-
-    public static void takeSnapShot(WebDriver webdriver, String fileWithPath) throws Exception {
-
-        //Convert web driver object to TakeScreenshot
-
-        TakesScreenshot scrShot = ((TakesScreenshot) webdriver);
-
-        //Call getScreenshotAs method to create image file
-
-        File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
-
-        //Move image file to new destination
-
-        File DestFile = new File(fileWithPath);
-
-        //Copy file at destination
-
-        FileUtils.copyFile(SrcFile, DestFile);
 
     }
 
@@ -63,6 +46,7 @@ public class CtripTest {
         String dateToday = dateFormat.format(today);
 
         driver.get(baseUrl);
+
         WebDriverWait wait = new WebDriverWait(driver, 1000);
         wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#hotelsCity")));
 
@@ -70,7 +54,7 @@ public class CtripTest {
         WebElement hotelNameTextField = driver.findElement(By.cssSelector("#hotelsCity"));
         hotelNameTextField.click();
 
-        takeSnapShot(driver, "C://Users//ygong1//IdeaProjects//SeleniumTest//hotelspopup.png");
+        TestUtils.takeSnapShot(driver, "C://Users//ygong1//IdeaProjects//SeleniumTest//hotelspopup.png");
 
         WebElement beijingLink = driver.findElement(By.linkText("Beijing"));
 
@@ -85,7 +69,7 @@ public class CtripTest {
         WebElement previousMonth = driver.findElement(By.cssSelector("#prev-month"));
         WebElement nextMonth = driver.findElement(By.cssSelector("#next-month"));
 
-        takeSnapShot(driver, "C://Users//ygong1//IdeaProjects//SeleniumTest//calendar.png");
+        TestUtils.takeSnapShot(driver, "C://Users//ygong1//IdeaProjects//SeleniumTest//calendar.png");
         todayLink.click();
 
         List<WebElement> starCheckBoxes = driver.findElements(By.cssSelector("label[class='ui_checkbox']"));
@@ -97,12 +81,13 @@ public class CtripTest {
         System.out.print(adElements.size() + "");
         for (WebElement element : adElements
                 ) {
-            removeElement(driver,element);
+            TestUtils.removeElement(driver, element);
         }
 
 
-        takeSnapShot(driver, "C://Users//ygong1//IdeaProjects//SeleniumTest//3starhotel.png");
+        TestUtils.takeSnapShot(driver, "C://Users//ygong1//IdeaProjects//SeleniumTest//3starhotel.png");
         WebElement searchHotelsButton = driver.findElement(By.cssSelector("#homesearch-btn"));
+        TestUtils.scroll(driver,true);
         searchHotelsButton.click();
 
     }
@@ -116,12 +101,13 @@ public class CtripTest {
         WebElement demoIframe = driver.findElement(By.cssSelector("#ifrm"));
         driver.switchTo().frame(demoIframe);
         WebElement iframeHeading = driver.findElement(By.cssSelector("h1"));
-        changeInnerHTML(driver, iframeHeading, "French fries Mother");
+        TestUtils.changeInnerHTML(driver, iframeHeading, "French fries Mother");
         driver.switchTo().defaultContent();
 
     }
 
 
+<<<<<<< HEAD
     static void changeInnerHTML(WebDriver driver, WebElement element, String content) {
         try{
         ((JavascriptExecutor) driver).executeScript(
@@ -146,10 +132,12 @@ public class CtripTest {
         }
     }
     
-    
-    void methodAddedByOnkobaSamson(){
-    
-    }
+
+//    void methodAddedByOnkobaSamson() {
+//
+//        //This is the second commit done by onkoba sam
+//
+//    }
 
 }
 
